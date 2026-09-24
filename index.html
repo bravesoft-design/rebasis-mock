@@ -66,7 +66,9 @@ async function check(raw){
   var buf = new Uint8Array(await r.arrayBuffer());
   await crypto.subtle.decrypt({name:"AES-GCM", iv:buf.slice(0,12)}, key, buf.slice(12)); // 違えば例外
 }
+var PW_KEY = "rebasis_mock_pw"; // 資料ページ（bs_pw）とは別に保存
 async function open_(pass){
+  pass = String(pass || "").trim().toUpperCase();
   var raw = await deriveRaw(pass);
   await check(raw);
   if(!("serviceWorker" in navigator)) throw new Error("このブラウザでは表示できません（Service Worker 非対応）");
@@ -78,7 +80,7 @@ async function open_(pass){
     sw.postMessage({type:"key", raw: raw.buffer}, [raw.buffer]);
     setTimeout(res, 3000);
   });
-  try { localStorage.setItem("bs_pw", pass); } catch(e) {}
+  try { localStorage.setItem(PW_KEY, pass); } catch(e) {}
   location.replace("app/index.html" + next);
 }
 document.getElementById("eye").addEventListener("click", function(){
@@ -97,7 +99,7 @@ document.getElementById("f").addEventListener("submit", async function(ev){
     : (err && err.message === "LOAD") ? "読み込みに失敗しました。ページを再読み込みしてください" : "合言葉が違います"; b.disabled = false; document.getElementById("p").select(); }
 });
 (async function(){
-  var saved = null; try { saved = localStorage.getItem("bs_pw") || sessionStorage.getItem("bs_pw"); } catch(e) {}
+  var saved = null; try { saved = localStorage.getItem(PW_KEY); } catch(e) {}
   if(saved){ document.getElementById("e").textContent = "開いています…"; try { await open_(saved); return; } catch(e) {} document.getElementById("e").textContent = ""; }
 })();
 </script>
