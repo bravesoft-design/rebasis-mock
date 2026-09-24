@@ -68,7 +68,7 @@ async function check(raw){
 }
 var PW_KEY = "rebasis_mock_pw"; // 資料ページ（bs_pw）とは別に保存
 async function open_(pass){
-  pass = String(pass || "").trim().toUpperCase();
+  pass = String(pass || "").trim().toLowerCase();
   var raw = await deriveRaw(pass);
   await check(raw);
   if(!("serviceWorker" in navigator)) throw new Error("このブラウザでは表示できません（Service Worker 非対応）");
