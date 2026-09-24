@@ -1,5 +1,5 @@
-// Re:basis 操作モック — 暗号化ファイルを復号して返す Service Worker（build mufeco4g）
-const SALT = "x4w4721T0HrB5LYxXwackg==";
+// Re:basis 操作モック — 暗号化ファイルを復号して返す Service Worker（build mufefzuf）
+const SALT = "QeOw0aCKf1yh379XlRD+Iw==";
 const KEY_URL = "./__key__";
 const TYPES = { html:"text/html; charset=utf-8", js:"text/javascript; charset=utf-8", mjs:"text/javascript; charset=utf-8",
   css:"text/css; charset=utf-8", json:"application/json", svg:"image/svg+xml", png:"image/png", jpg:"image/jpeg",
